@@ -6,5 +6,7 @@ router.get('/', getMeals);
 router.post('/add', addMeal);
 router.put('/update/:id', updateMeal);
 router.delete('/delete/:id', deleteMeal);
-
+router.get('/', (req, res) => {
+    res.render('cookbook', { user: req.session.user });
+});
 module.exports = router;

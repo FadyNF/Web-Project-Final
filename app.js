@@ -1,12 +1,11 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-
-const homePageRoute = require("./routes/index-route");
+const homePageRoute = require('./routes/index-route');
 const aboutUsPageRoute = require('./routes/about-us-route');
-const cookbookRoute = require("./routes/cookbook-route");
+const cookbookRoute = require('./routes/cookbook-route');
 const hiwRoute = require('./routes/how-it-works-route');
 const ourPlansRoute = require('./routes/our-plans-route');
 const sustainabilityRoute = require('./routes/sustainability-route');
@@ -23,9 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-
-app.set("view engine", "ejs");
-
+app.set('view engine', 'ejs');
 
 app.use(
   session({
@@ -33,24 +30,15 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb+srv://omneya:KA37rzgOS2iyj5X1@freshbites.wagcbow.mongodb.net/?retryWrites=true&w=majority&appName=freshbites",
+      mongoUrl: 'mongodb+srv://omneya:KA37rzgOS2iyj5X1@freshbites.wagcbow.mongodb.net/?retryWrites=true&w=majority&appName=freshbites',
       collectionName: 'sessions'
     }),
-    cookie: { maxAge: 180 * 60 * 1000 } // 3 hours
+    cookie: { maxAge: 3 * 60 * 60 * 1000 } // 3 hours
   })
 );
 
-
-
-
-app.use((req, res, next) => {
-  console.log('Session:', req.session);
-  next();
-});
-
-
 app.use('/', homePageRoute);
-app.use('/about-us', aboutUsPageRoute)
+app.use('/about-us', aboutUsPageRoute);
 app.use('/how-it-works', hiwRoute);
 app.use('/our-plans', ourPlansRoute);
 app.use('/sustainability', sustainabilityRoute);
@@ -59,25 +47,15 @@ app.use('/login-signup', loginSignupRoute);
 app.use('/user', userRoute);
 app.use('/admin', adminRoute);
 
-
-
 mongoose
   .connect(
-    "mongodb+srv://omneya:KA37rzgOS2iyj5X1@freshbites.wagcbow.mongodb.net/?retryWrites=true&w=majority&appName=freshbites"
+    'mongodb+srv://omneya:KA37rzgOS2iyj5X1@freshbites.wagcbow.mongodb.net/?retryWrites=true&w=majority&appName=freshbites'
   )
   .then(() => {
-    console.log("Connected to database successfully!");
-    app.listen(port, () => console.log(`Sever is running on port ${port}`));
+    console.log('Connected to database successfully!');
+    app.listen(port, () => console.log(`Server is running on port ${port}`));
   })
   .catch((error) => {
-    console.log("Failed to connect to the database!");
+    console.log('Failed to connect to the database!');
     console.error(error);
   });
-
-app.use("/", homePageRoute);
-app.use("/about-us", aboutUsPageRoute);
-app.use("/how-it-works", hiwRoute);
-app.use("/our-plans", ourPlansRoute);
-app.use("/sustainability", sustainabilityRoute);
-app.use("/sourcing", sourcingRoute);
-app.use("/cookbook", cookbookRoute);
