@@ -840,3 +840,13 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Reviews link not found");
     }
 });
+// Select the logout link
+const logoutLink = document.getElementById('logoutLink');
+
+// Add click event listener to the logout link
+logoutLink.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    // Redirect to the login-signup page
+    window.location.href = '/login-signup';
+});
