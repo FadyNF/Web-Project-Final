@@ -840,6 +840,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Reviews link not found");
     }
 });
+<<<<<<< HEAD
 // Select the logout link
 const logoutLink = document.getElementById('logoutLink');
 
@@ -850,3 +851,22 @@ logoutLink.addEventListener('click', function(event) {
     // Redirect to the login-signup page
     window.location.href = '/login-signup';
 });
+=======
+
+
+ document.getElementById('logoutLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            fetch('/login-signup/logout', {
+                method: 'GET',
+                credentials: 'same-origin'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/login-signup';
+                } else {
+                    console.error('Logout failed');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
+>>>>>>> main
